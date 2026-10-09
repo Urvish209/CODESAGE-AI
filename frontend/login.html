@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Code Sage AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-wrapper">
+        <div class="auth-left">
+            <div class="overlay"></div>
+            <div class="left-content">
+                <div class="logo-box">CS</div>
+                <h1>Code Sage AI</h1>
+                <p>AI powered code review platform</p>
+                <ul>
+                    <li>✔ AI code review</li>
+                    <li>✔ Rule based scanner</li>
+                    <li>✔ GitHub repository analysis</li>
+                    <li>✔ Review history</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="auth-card">
+                <h2>Welcome back</h2>
+                <p>Login to continue.</p>
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email" placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password" placeholder="••••••••">
+                </div>
+
+                <button class="primary-btn full-btn" onclick="login()">Login</button>
+
+                <div class="divider">OR</div>
+
+                <a href="register.html" class="secondary-btn full-btn">Create account</a>
+
+                <div class="bottom-text">
+                    <a href="index.html">← Back to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Code Sage AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-wrapper">
+        <div class="auth-left">
+            <div class="overlay"></div>
+            <div class="left-content">
+                <div class="logo-box">CS</div>
+                <h1>Code Sage AI</h1>
+                <p>Join developers building more secure software.</p>
+                <ul>
+                    <li>✔ Repository scanning</li>
+                    <li>✔ AI powered reviews</li>
+                    <li>✔ Security detection</li>
+                    <li>✔ Review history</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="auth-right">
+            <div class="auth-card">
+                <h2>Create account</h2>
+                <p>Start reviewing your code in seconds.</p>
+
+                <div class="form-group">
+                    <label for="regName">Full name</label>
+                    <input id="regName" type="text" placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input id="regEmail" type="email" placeholder="john@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input id="regPassword" type="password" placeholder="Minimum 6 characters">
+                </div>
+
+                <button class="primary-btn full-btn" onclick="register()">Create account</button>
+
+                <div class="divider">OR</div>
+
+                <a href="login.html" class="secondary-btn full-btn">Already have an account?</a>
+
+                <div class="bottom-text">
+                    <a href="index.html">← Back to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

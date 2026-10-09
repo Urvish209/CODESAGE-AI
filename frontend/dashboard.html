@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Code Sage AI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+
+    <div class="dashboard">
+
+        <!-- =====================================================
+             SIDEBAR
+        ====================================================== -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+
+                <div class="logo-circle">
+                    CS
+                </div>
+
+                <div>
+                    <h2>Code Sage</h2>
+                    <p>AI Developer Suite</p>
+                </div>
+
+            </div>
+
+
+            <nav>
+
+                <ul>
+
+                    <li onclick="showSection('home', this)" class="active">
+                        🏠
+                        <span>Dashboard</span>
+                    </li>
+
+                    <li onclick="showSection('repoScan', this)">
+                        📂
+                        <span>Repository</span>
+                    </li>
+
+                    <li onclick="showSection('ai', this)">
+                        🔍
+                        <span>Code Review</span>
+                    </li>
+
+                    <li onclick="showSection('rule', this)">
+                        🛡
+                        <span>Rule Scanner</span>
+                    </li>
+
+                    <li onclick="showSection('history', this)">
+                        📜
+                        <span>Review History</span>
+                    </li>
+
+                    <li onclick="showSection('profile', this)">
+                        👤
+                        <span>Profile</span>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+            <div class="sidebar-footer">
+
+                <button class="danger-btn full-btn" onclick="logout()">
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             MAIN CONTENT
+        ====================================================== -->
+
+        <main class="main">
+
+
+            <div class="topbar">
+
+                <h1>
+                    Welcome,
+                    <span id="userName">Developer</span>
+                    👋
+                </h1>
+
+                <p>
+                    AI powered development and code intelligence platform
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 DASHBOARD / HOME
+            ================================================== -->
+
+            <section id="home" class="page-section active">
+
+                <div class="cards">
+
+                    <div class="stat-card">
+                        <h3>Repositories</h3>
+                        <h1 id="repoCount">0</h1>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>AI Reviews</h3>
+                        <h1 id="reviewCount">0</h1>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Security Score</h3>
+                        <h1>94%</h1>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Status</h3>
+                        <h1>Healthy</h1>
+                    </div>
+
+                </div>
+
+
+                <div class="welcome-card">
+
+                    <h2>Welcome to Code Sage AI</h2>
+
+                    <p>
+                        Analyze repositories, review source code,
+                        detect vulnerabilities, chat with AI,
+                        automatically improve code, and generate
+                        project documentation.
+                    </p>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+                    <h2>Quick Actions</h2>
+
+                    <div class="quick-action-grid">
+
+                        <button class="quick-action-card" onclick="showSection('repoScan')">
+                            <span class="quick-icon">📂</span>
+                            <strong>Analyze Repository</strong>
+                            <small>Scan a GitHub repository</small>
+                        </button>
+
+                        <button class="quick-action-card" onclick="showSection('ai')">
+                            <span class="quick-icon">🔍</span>
+                            <strong>Review Code</strong>
+                            <small>Get an AI code review</small>
+                        </button>
+
+                        <button class="quick-action-card" onclick="showSection('rule')">
+                            <span class="quick-icon">🛡</span>
+                            <strong>Rule Scanner</strong>
+                            <small>Run a rule based scan</small>
+                        </button>
+
+                        <button class="quick-action-card" onclick="showSection('repoScan')">
+                            <span class="quick-icon">📄</span>
+                            <strong>Documentation</strong>
+                            <small>Generate SRS / Snapshot / Plan</small>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 REPOSITORY ANALYZER
+            ================================================== -->
+
+            <section id="repoScan" class="page-section">
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>GitHub Repository Analyzer</h2>
+                            <p>Analyze your repository using Code Sage AI.</p>
+                        </div>
+
+                        <div class="ai-mini-buttons">
+                            <button class="secondary-btn" onclick="toggleAIPanel('repo', 'chat')">🤖 Ask AI</button>
+                            <button class="secondary-btn" onclick="toggleAIPanel('repo', 'fix')">🛠 Auto Fix</button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="repo">GitHub Repository URL</label>
+                        <input id="repo" type="text" placeholder="https://github.com/user/project">
+                    </div>
+
+
+                    <div class="buttons repo-action-row">
+
+                        <button class="primary" onclick="analyzeRepo()">📂 Analyze Repository</button>
+
+                        <div class="report-menu-wrap">
+
+                            <button id="reportPdfBtn" class="secondary-btn" style="display:none;"
+                                onclick="toggleReportMenu(event)">📄 Report PDF ▾</button>
+
+                            <div id="reportMenu" class="report-menu" style="display:none;">
+                                <button onclick="downloadReport('srs', 'SRS Report')">📄 Download SRS</button>
+                                <button onclick="downloadReport('snapshot', 'Project Snapshot')">📊 Download
+                                    Snapshot</button>
+                                <button onclick="downloadReport('evolution', 'Evolution and Fix Plan')">🚀 Download
+                                    Evolution Plan</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="output" class="output-box">
+
+                        <div class="empty-state">
+                            <div class="empty-icon">📂</div>
+                            <h3>No Repository Analyzed</h3>
+                            <p>Enter a GitHub repository URL above to begin analysis.</p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMPACT AI CHAT PANEL (collapsed by default) -->
+
+                    <div id="repoChatPanel" class="ai-mini-panel" style="display:none;">
+
+                        <div class="ai-popup-header"><strong>🤖 Ask AI</strong><button class="ai-popup-close"
+                                onclick="closeAIPanels()">✕</button></div>
+
+
+                        <div id="repoAiChatMessages" class="chat-messages compact">
+                            <div class="chat-message ai-message">
+                                <div class="chat-avatar">CS</div>
+                                <div class="chat-bubble">
+                                    <strong>Code Sage AI</strong>
+                                    <p>Ask me anything about your last analyzed repository.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <textarea id="repoAiChatInput" class="chat-input" rows="1"
+                                placeholder="Ask something..."></textarea>
+                            <button class="ai-btn" onclick="sendAIChat('repo')">Send</button>
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMPACT AUTO FIX PANEL (collapsed by default) -->
+
+                    <div id="repoFixPanel" class="ai-mini-panel" style="display:none;">
+
+                        <div class="ai-popup-header"><strong>🛠 Auto Fix</strong><button class="ai-popup-close"
+                                onclick="closeAIPanels()">✕</button></div>
+
+
+                        <div class="form-group">
+                            <label for="repoFixFile">File</label>
+                            <select id="repoFixFile">
+                                <option value="">No files yet — analyze a repository first</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="repoFixIssue">Issue to fix</label>
+                            <input id="repoFixIssue" type="text" placeholder="e.g. hardcoded API key on line 12">
+                        </div>
+
+                        <div class="buttons">
+                            <button class="ai-btn" onclick="runAIFix('repo')">🛠 Fix with AI</button>
+                        </div>
+
+                        <div id="repoFixOutput" class="output-box"></div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 AI CODE REVIEW
+            ================================================== -->
+
+            <section id="ai" class="page-section">
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>AI Code Review</h2>
+                            <p>Get an AI-powered analysis of your source code.</p>
+                        </div>
+
+                        <div class="ai-mini-buttons">
+                            <button class="secondary-btn" onclick="toggleAIPanel('review', 'chat')">🤖 Ask AI</button>
+                            <button class="secondary-btn" onclick="toggleAIPanel('review', 'fix')">🛠 Auto Fix</button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="aiCode">Source Code</label>
+                        <textarea id="aiCode" placeholder="Paste your source code here..."></textarea>
+                    </div>
+
+
+                    <div class="buttons">
+                        <button class="ai-btn" onclick="aiReview()">🤖 Review Using AI</button>
+                    </div>
+
+
+                    <div id="aiOutput" class="output-box">
+                        AI response appears here...
+                    </div>
+
+
+                    <div id="reviewChatPanel" class="ai-mini-panel" style="display:none;">
+
+                        <div class="ai-popup-header"><strong>🤖 Ask AI</strong><button class="ai-popup-close"
+                                onclick="closeAIPanels()">✕</button></div>
+
+
+                        <div id="reviewAiChatMessages" class="chat-messages compact">
+                            <div class="chat-message ai-message">
+                                <div class="chat-avatar">CS</div>
+                                <div class="chat-bubble">
+                                    <strong>Code Sage AI</strong>
+                                    <p>Ask me anything about your last analyzed repository.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <textarea id="reviewAiChatInput" class="chat-input" rows="1"
+                                placeholder="Ask something..."></textarea>
+                            <button class="ai-btn" onclick="sendAIChat('review')">Send</button>
+                        </div>
+
+                    </div>
+
+
+                    <div id="reviewFixPanel" class="ai-mini-panel" style="display:none;">
+
+                        <div class="ai-popup-header"><strong>🛠 Auto Fix</strong><button class="ai-popup-close"
+                                onclick="closeAIPanels()">✕</button></div>
+
+
+                        <div class="form-group">
+                            <label for="reviewFixFile">File</label>
+                            <select id="reviewFixFile">
+                                <option value="">No files yet — analyze a repository first</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reviewFixIssue">Issue to fix</label>
+                            <input id="reviewFixIssue" type="text" placeholder="e.g. bare except block on line 40">
+                        </div>
+
+                        <div class="buttons">
+                            <button class="ai-btn" onclick="runAIFix('review')">🛠 Fix with AI</button>
+                        </div>
+
+                        <div id="reviewFixOutput" class="output-box"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RULE SCANNER
+            ================================================== -->
+
+            <section id="rule" class="page-section">
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>Rule Based Scanner</h2>
+                            <p>Detect common code issues using predefined security and quality rules.</p>
+                        </div>
+
+                        <div class="ai-mini-buttons">
+                            <button class="secondary-btn" onclick="toggleAIPanel('rule', 'chat')">🤖 Ask AI</button>
+                            <button class="secondary-btn" onclick="toggleAIPanel('rule', 'fix')">🛠 Auto Fix</button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="code">Source Code</label>
+                        <textarea id="code" placeholder="Paste your source code here..."></textarea>
+                    </div>
+
+
+                    <div class="buttons">
+                        <button class="primary" onclick="ruleReview()">🛡 Run Scanner</button>
+                    </div>
+
+
+                    <div id="ruleOutput" class="output-box">
+                        Waiting for scan...
+                    </div>
+
+
+                    <div id="ruleChatPanel" class="ai-mini-panel" style="display:none;">
+
+                        <div class="ai-popup-header"><strong>🤖 Ask AI</strong><button class="ai-popup-close"
+                                onclick="closeAIPanels()">✕</button></div>
+
+
+                        <div id="ruleAiChatMessages" class="chat-messages compact">
+                            <div class="chat-message ai-message">
+                                <div class="chat-avatar">CS</div>
+                                <div class="chat-bubble">
+                                    <strong>Code Sage AI</strong>
+                                    <p>Ask me anything about your last analyzed repository.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <textarea id="ruleAiChatInput" class="chat-input" rows="1"
+                                placeholder="Ask something..."></textarea>
+                            <button class="ai-btn" onclick="sendAIChat('rule')">Send</button>
+                        </div>
+
+                    </div>
+
+
+                    <div id="ruleFixPanel" class="ai-mini-panel" style="display:none;">
+
+                        <div class="ai-popup-header"><strong>🛠 Auto Fix</strong><button class="ai-popup-close"
+                                onclick="closeAIPanels()">✕</button></div>
+
+
+                        <div class="form-group">
+                            <label for="ruleFixFile">File</label>
+                            <select id="ruleFixFile">
+                                <option value="">No files yet — analyze a repository first</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ruleFixIssue">Issue to fix</label>
+                            <input id="ruleFixIssue" type="text" placeholder="e.g. SELECT * used in query on line 22">
+                        </div>
+
+                        <div class="buttons">
+                            <button class="ai-btn" onclick="runAIFix('rule')">🛠 Fix with AI</button>
+                        </div>
+
+                        <div id="ruleFixOutput" class="output-box"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 REVIEW HISTORY
+            ================================================== -->
+
+            <section id="history" class="page-section">
+
+                <div class="content-card">
+
+                    <div class="section-header">
+
+                        <div>
+                            <h2>Review History</h2>
+                            <p>Previous repository and code reviews.</p>
+                        </div>
+
+                        <button class="secondary-btn" onclick="loadHistory()">↻ Refresh</button>
+
+                    </div>
+
+
+                    <div id="historyList" class="history-container">
+                        <p>No reviews yet.</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PROFILE
+            ================================================== -->
+
+            <section id="profile" class="page-section">
+
+                <div class="profile-card">
+
+                    <div class="profile-avatar">CS</div>
+
+                    <h2 id="profileName">Developer</h2>
+
+                    <p id="profileEmail">developer@email.com</p>
+
+
+                    <div class="profile-stats">
+
+                        <div>
+                            <h3>Repositories</h3>
+                            <p id="profileRepos">0</p>
+                        </div>
+
+                        <div>
+                            <h3>Reviews</h3>
+                            <p id="profileReviews">0</p>
+                        </div>
+
+                        <div>
+                            <h3>Member</h3>
+                            <p>2026</p>
+                        </div>
+
+                    </div>
+
+
+                    <button class="danger-btn full-btn" onclick="logout()">Logout</button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer class="dashboard-footer">
+        <p>© 2026 Code Sage AI • Built with FastAPI + Groq + SQLite</p>
+    </footer>
+
+
+    <div id="toast"></div>
+
+
+    <!-- =========================================================
+         EXTERNAL LIBRARIES
+    ========================================================== -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+
+    <!-- =========================================================
+         CODE SAGE JAVASCRIPT
+    ========================================================== -->
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/review.js"></script>
+    <script src="js/repo.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/dashboard.js"></script>
+
+
+    <!-- =========================================================
+         DASHBOARD FUNCTIONS
+    ========================================================== -->
+
+    <script>
+
+        /*
+         * SECTION NAVIGATION
+         */
+
+        function showSection(section, el) {
+
+            document
+                .querySelectorAll(".page-section")
+                .forEach(page => page.classList.remove("active"));
+
+            const target = document.getElementById(section);
+
+            if (target) {
+                target.classList.add("active");
+            }
+
+            document
+                .querySelectorAll(".sidebar nav li")
+                .forEach(li => li.classList.remove("active"));
+
+            if (el) {
+                el.classList.add("active");
+            }
+        }
+
+
+        /*
+         * COMPACT AI CHAT / AUTO FIX PANEL TOGGLE
+         *
+         * type is "chat" or "fix". prefix is "repo",
+         * "review", or "rule". Opens the requested panel
+         * and closes the other one on the same page, so
+         * only one compact panel is expanded at a time.
+         */
+
+        function toggleAIPanel(prefix, type) {
+
+            const panelId =
+                type === "chat"
+                    ? `${prefix}ChatPanel`
+                    : `${prefix}FixPanel`;
+
+            const panel = document.getElementById(panelId);
+
+            if (!panel) return;
+
+            const isOpen = panel.style.display === "block";
+
+            // close every popup first so only one is open at a time
+            document
+                .querySelectorAll(".ai-mini-panel")
+                .forEach(p => p.style.display = "none");
+
+            panel.style.display = isOpen ? "none" : "block";
+        }
+
+
+        function closeAIPanels() {
+
+            document
+                .querySelectorAll(".ai-mini-panel")
+                .forEach(p => p.style.display = "none");
+        }
+
+
+        /*
+         * REPORT PDF MENU
+         */
+
+        function toggleReportMenu(event) {
+
+            if (event) event.stopPropagation();
+
+            const menu = document.getElementById("reportMenu");
+
+            if (!menu) return;
+
+            menu.style.display =
+                menu.style.display === "block" ? "none" : "block";
+        }
+
+
+        document.addEventListener("click", function () {
+
+            const menu = document.getElementById("reportMenu");
+
+            if (menu) menu.style.display = "none";
+        });
+
+
+        /*
+         * PAGE LOAD
+         */
+
+        window.onload = function () {
+
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const userName = document.getElementById("userName");
+            const profileName = document.getElementById("profileName");
+            const profileEmail = document.getElementById("profileEmail");
+
+            if (userName) userName.innerText = user.name || "Developer";
+            if (profileName) profileName.innerText = user.name || "Developer";
+            if (profileEmail) profileEmail.innerText = user.email || "developer@email.com";
+
+            if (typeof loadHistory === "function") {
+                loadHistory();
+            }
+
+            if (typeof refreshAllFileDropdowns === "function") {
+                refreshAllFileDropdowns();
+            }
+        };
+
+    </script>
+
+</body>
+
+</html>
